@@ -16,15 +16,16 @@ public class ClassLoaderHookHelper {
     //前者是 makePathElements(List<File> files, File optimizedDirectory,List<IOException> suppressedExceptions)
     public static void hookV23(ClassLoader classLoader, File outDexFilePath, File optimizedDirectory)
             throws IllegalAccessException, InvocationTargetException {
-        //1、获得DexPathList pathList 属性
+//        1.取得PathClassLoader的pathList的属性
         Field pathList = ReflectionUtil.getField(classLoader, "pathList");
-        //2、获得DexPathList pathList对象
+//        2.取得PathClassLoader的pathList的属性真实值（得到一个DexPathList对象）
         Object dexPathListObj = pathList.get(classLoader);
-        //3、获得DexPathList的dexElements属性
+//        3.获得DexPathList中的dexElements 属性
         Field dexElementsField = ReflectionUtil.getField(dexPathListObj, "dexElements");
-        //4、获得pathList对象中 dexElements 的属性值
+//        4.获得DexPathList对象中dexElements 属性的真实值
         Object[] oldElements = (Object[]) dexElementsField.get(dexPathListObj);
 
+        // 第二阶段
         List<File> files = new ArrayList<>();//开始构建makeDexElements的实参
         files.add(outDexFilePath);
         List<IOException> ioExceptions = new ArrayList<>();
@@ -32,7 +33,6 @@ public class ClassLoaderHookHelper {
         Method makePathElementsMethod = ReflectionUtil.getMethod(
                 dexPathListObj, "makePathElements", List.class, File.class, List.class);
         assert makePathElementsMethod != null;
-
         //构建出一个新的Element数组
         Object[] newElements = (Object[]) makePathElementsMethod.invoke(
                 null, files, optimizedDirectory, ioExceptions);
