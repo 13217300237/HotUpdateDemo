@@ -1,4 +1,6 @@
-package com.example.administrator.myapplication.utils;
+package com.example.administrator.myapplication.hot.fix.core;
+
+import com.example.administrator.myapplication.utils.ReflectionUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +16,7 @@ public class ClassLoaderHookHelper {
     //23和19的差别，就是 makeXXXElements 方法名和参数要求不同
     //后者是 makeDexElements(ArrayList<File> files, File optimizedDirectory,ArrayList<IOException> suppressedExceptions)
     //前者是 makePathElements(List<File> files, File optimizedDirectory,List<IOException> suppressedExceptions)
-    public static void hookV23(ClassLoader classLoader, File outDexFilePath, File optimizedDirectory)
+    static void hookV23(ClassLoader classLoader, File outDexFilePath, File optimizedDirectory)
             throws IllegalAccessException, InvocationTargetException {
 //        1.取得PathClassLoader的pathList的属性
         Field pathList = ReflectionUtil.getField(classLoader, "pathList");
