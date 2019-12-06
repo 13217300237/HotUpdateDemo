@@ -1,3 +1,16 @@
+import org.apache.commons.compress.utils.IOUtils
+import org.objectweb.asm.ClassReader
+import org.objectweb.asm.ClassVisitor
+import org.objectweb.asm.ClassWriter
+import org.objectweb.asm.MethodVisitor
+import org.objectweb.asm.Opcodes
+import org.objectweb.asm.Type
+
+import java.util.jar.JarEntry
+import java.util.jar.JarFile
+import java.util.jar.JarOutputStream
+import java.util.regex.Matcher
+
 apply plugin: 'com.android.application'
 apply plugin: com.zhou.buildsrc.HotfixPlugin
 
