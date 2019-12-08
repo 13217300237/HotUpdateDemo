@@ -40,6 +40,9 @@ public class HotfixPlugin implements Plugin<Project> {
 
         project.getExtensions().create("HotfixExt", HotfixExt.class);
 
+        /**
+         * 解析当前module的gradle文件之后
+         */
         project.afterEvaluate(new Action<Project>() {
             @Override
             public void execute(Project project) {
