@@ -31,6 +31,10 @@ import java.util.jar.JarOutputStream;
 
 
 public class HotfixPlugin implements Plugin<Project> {
+
+    private static final String APP_CLASS_NAME = "com" + File.separator + "example" + File.separator + "administrator" + File.separator +
+            "myapplication" + File.separator + "MyApp.class";
+
     @Override
     public void apply(Project project) {
         System.out.println("\n\n\n=================Our hotfixPlugin codes=================");
@@ -198,7 +202,7 @@ public class HotfixPlugin implements Plugin<Project> {
     }
 
     private boolean isApplicationClz(String ori) {
-        return ori.equals("com\\example\\administrator\\myapplication\\MyApp.class");
+        return ori.equals(APP_CLASS_NAME);
     }
 
     /**
